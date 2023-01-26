@@ -17,7 +17,6 @@
         app:tabIndicatorFullWidth="true"
         app:tabSelectedTextColor="@color/white"
         app:tabIndicatorHeight="50dp"
-
         app:tabIndicator="@drawable/tab_shape"
         >
 
