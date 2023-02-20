@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 1;
     ActivityMainBinding binding;
-    ArrayList<MusicFiles> musicFiles;
+  public static ArrayList<MusicFiles> musicFiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        viewpager();
+       // viewpager();
         permission();
 
 
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
             musicFiles = getAllAudio(this);
+            viewpager();
         }
     }
 
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 musicFiles = getAllAudio(this);
+                viewpager();
 
             } else {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}

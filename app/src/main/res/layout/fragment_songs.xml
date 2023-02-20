@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#474545"
     tools:context=".fragments.SongsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="songs"
-        android:textSize="40sp"/>
-
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/music_recycler"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:listitem="@layout/music_item"
+      />
 </FrameLayout>
