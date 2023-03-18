@@ -2,6 +2,7 @@ package com.example.testmusicapp.fragments;
 
 import static com.example.testmusicapp.MainActivity.musicFiles;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,12 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.testmusicapp.PlayerActivity;
 import com.example.testmusicapp.R;
 import com.example.testmusicapp.adapter.MusicAdapter;
 import com.example.testmusicapp.databinding.FragmentSongsBinding;
+import com.example.testmusicapp.model.MusicFiles;
 
 
-public class SongsFragment extends Fragment {
+public class SongsFragment extends Fragment implements MusicAdapter.SongItemClick {
 
     MusicAdapter musicAdapter;
     FragmentSongsBinding binding;
@@ -45,7 +48,7 @@ public class SongsFragment extends Fragment {
 
         if (!(musicFiles.size() < 1))
         {
-            musicAdapter = new MusicAdapter(getContext(),musicFiles);
+            musicAdapter = new MusicAdapter(getContext(),musicFiles , this);
             binding.musicRecycler.setAdapter(musicAdapter);
             binding.musicRecycler.setLayoutManager(new LinearLayoutManager(getContext(),binding.musicRecycler.VERTICAL,
                     false));
@@ -59,5 +62,10 @@ public class SongsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding=FragmentSongsBinding.bind(view);
+    }
+
+    @Override
+    public void songClicked(MusicFiles musicFiles) {
+        startActivity(new Intent(getActivity(), PlayerActivity.class));
     }
 }

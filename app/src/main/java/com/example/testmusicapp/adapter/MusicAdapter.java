@@ -1,16 +1,20 @@
 package com.example.testmusicapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.testmusicapp.PlayerActivity;
+import com.example.testmusicapp.R;
 import com.example.testmusicapp.databinding.MusicItemBinding;
 import com.example.testmusicapp.model.MusicFiles;
 
@@ -20,10 +24,12 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
 
     Context context;
     private ArrayList<MusicFiles> mFiles;
+    private SongItemClick songItemClick;
 
-    public MusicAdapter(Context context, ArrayList<MusicFiles> mFiles) {
+    public MusicAdapter(Context context, ArrayList<MusicFiles> mFiles, SongItemClick songItemClick) {
         this.context = context;
         this.mFiles = mFiles;
+        this.songItemClick = songItemClick;
     }
 
     @NonNull
@@ -43,7 +49,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
 
         holder.binding.musicName.setText(mF.getTitle());
         byte[] image = getAlbumImage(mF.getPath());
-        if(image != null)
+        if (image != null)
             Glide.with(context).asBitmap()
                     .load(image)
                     .into(holder.binding.musicImg);
@@ -56,13 +62,19 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
         return mFiles.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         MusicItemBinding binding;
 
         public MyViewHolder(@NonNull MusicItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    songItemClick.songClicked(mFiles.get(getLayoutPosition()));
+                }
+            });
         }
     }
 
@@ -72,6 +84,10 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
         byte[] art = retriever.getEmbeddedPicture();
         retriever.release();
         return art;
+    }
+
+    public interface SongItemClick {
+        public void songClicked(MusicFiles musicFiles);
     }
 
 }
