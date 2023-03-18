@@ -54,6 +54,18 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MyViewHolder
                     .load(image)
                     .into(holder.binding.musicImg);
 
+        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context,PlayerActivity.class);
+                intent.putExtra("position" , position);
+
+                context. startActivity(intent);
+
+            }
+        });
+
 
     }
 

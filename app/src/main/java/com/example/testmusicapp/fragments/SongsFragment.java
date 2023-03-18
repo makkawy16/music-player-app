@@ -66,6 +66,6 @@ public class SongsFragment extends Fragment implements MusicAdapter.SongItemClic
 
     @Override
     public void songClicked(MusicFiles musicFiles) {
-        startActivity(new Intent(getActivity(), PlayerActivity.class));
+       // startActivity(new Intent(getActivity(), PlayerActivity.class));
     }
 }
